@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Framework // Cyber Intel Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Dark Theme (Cyber Obsidian & Neon Cyan) */
+            --bg-base: #060813;
+            --bg-surface: #0a0e22;
+            --bg-surface-elevated: #0f1631;
+            --bg-card: rgba(12, 18, 38, 0.78);
+            --bg-card-hover: rgba(18, 27, 56, 0.95);
+            --border-color: rgba(0, 240, 255, 0.16);
+            --border-hover: rgba(0, 240, 255, 0.55);
+            --border-glow: rgba(0, 240, 255, 0.35);
+            
+            --header-bg: rgba(6, 8, 19, 0.88);
+            --sidebar-bg: rgba(8, 11, 24, 0.78);
+            --banner-bg: linear-gradient(135deg, rgba(13, 19, 38, 0.9) 0%, rgba(10, 14, 30, 0.96) 100%);
+            --cat-header-bg: linear-gradient(90deg, rgba(16, 24, 48, 0.85) 0%, rgba(10, 14, 30, 0.85) 100%);
+            --cat-header-expanded: linear-gradient(90deg, rgba(22, 34, 68, 0.92) 0%, rgba(14, 20, 42, 0.92) 100%);
+            --metric-bg: rgba(0, 0, 0, 0.45);
+            --filter-pill-bg: rgba(0, 0, 0, 0.35);
+            --action-border: rgba(255, 255, 255, 0.06);
+            --copy-btn-bg: rgba(255, 255, 255, 0.04);
+            --copy-btn-hover: rgba(0, 240, 255, 0.12);
+            --footer-bg: rgba(6, 8, 19, 0.92);
+            
+            --neon-cyan: #00f0ff;
+            --neon-cyan-glow: rgba(0, 240, 255, 0.3);
+            --neon-pink: #ff2a85;
+            --neon-pink-glow: rgba(255, 42, 133, 0.3);
+            --neon-purple: #9d4edd;
+            --neon-amber: #ffaa00;
+            --neon-green: #00ffaa;
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #52637a;
+            
+            --badge-t-bg: rgba(255, 42, 133, 0.15);
+            --badge-t-border: rgba(255, 42, 133, 0.4);
+            --badge-t-color: #ff2a85;
+            
+            --badge-d-bg: rgba(255, 170, 0, 0.15);
+            --badge-d-border: rgba(255, 170, 0, 0.4);
+            --badge-d-color: #ffaa00;
+            
+            --badge-r-bg: rgba(0, 240, 255, 0.15);
+            --badge-r-border: rgba(0, 240, 255, 0.4);
+            --badge-r-color: #00f0ff;
+            
+            --badge-m-bg: rgba(157, 78, 221, 0.15);
+            --badge-m-border: rgba(157, 78, 221, 0.4);
+            --badge-m-color: #b76eff;
+            
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            --grid-line: rgba(0, 240, 255, 0.025);
+            --accent-gradient: linear-gradient(135deg, #00f0ff 0%, #9d4edd 50%, #ff2a85 100%);
+            --header-border: rgba(0, 240, 255, 0.2);
+        }
+
+        [data-theme="light"] {
+            /* Light Theme (Crisp High-Contrast Sci-Fi Lab) */
+            --bg-base: #f0f4f9;
+            --bg-surface: #ffffff;
+            --bg-surface-elevated: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #ffffff;
+            --border-color: #d1d9e2;
+            --border-hover: #0284c7;
+            --border-glow: rgba(2, 132, 199, 0.35);
+            
+            --header-bg: rgba(255, 255, 255, 0.94);
+            --sidebar-bg: rgba(255, 255, 255, 0.92);
+            --banner-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --cat-header-bg: linear-gradient(90deg, #f8fafc 0%, #edf2f7 100%);
+            --cat-header-expanded: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 100%);
+            --metric-bg: #f8fafc;
+            --filter-pill-bg: #ffffff;
+            --action-border: #e2e8f0;
+            --copy-btn-bg: #f1f5f9;
+            --copy-btn-hover: #e0f2fe;
+            --footer-bg: #ffffff;
+            
+            --neon-cyan: #0284c7;
+            --neon-cyan-glow: rgba(2, 132, 199, 0.25);
+            --neon-pink: #be123c;
+            --neon-purple: #6d28d9;
+            --neon-amber: #b45309;
+            --neon-green: #047857;
+            
+            --text-primary: #090e1a;    /* Jet Navy for crisp 100% readability */
+            --text-secondary: #334155;  /* Deep Charcoal Slate, highly legible */
+            --text-muted: #64748b;
+            
+            --badge-t-bg: #ffe4e6;
+            --badge-t-border: #fecdd3;
+            --badge-t-color: #9f1239;
+            
+            --badge-d-bg: #fef3c7;
+            --badge-d-border: #fde68a;
+            --badge-d-color: #92400e;
+            
+            --badge-r-bg: #e0f2fe;
+            --badge-r-border: #bae6fd;
+            --badge-r-color: #0369a1;
+            
+            --badge-m-bg: #ede9fe;
+            --badge-m-border: #ddd6fe;
+            --badge-m-color: #5b21b6;
+            
+            --card-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+            --grid-line: rgba(2, 132, 199, 0.04);
+            --accent-gradient: linear-gradient(135deg, #0284c7 0%, #6d28d9 50%, #be123c 100%);
+            --header-border: #d1d9e2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(157, 78, 221, 0.06) 0%, transparent 45%),
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        [data-theme="light"] body {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(109, 40, 217, 0.05) 0%, transparent 45%),
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+        }
+
+        /* Futuristic Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Header / HUD Bar */
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.85rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--header-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+            gap: 1.5rem;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .status-radar {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+            flex-shrink: 0;
+        }
+
+        .status-radar::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid var(--neon-cyan);
+            animation: radarPulse 2s infinite ease-out;
+        }
+
+        @keyframes radarPulse {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .logo-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            border: 1px solid var(--border-color);
+            background: rgba(0, 240, 255, 0.06);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        [data-theme="light"] .logo-tag {
+            background: rgba(2, 132, 199, 0.08);
+            border-color: rgba(2, 132, 199, 0.25);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        /* Cyber Search Bar */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            color: var(--neon-cyan);
+            font-size: 0.95rem;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .search-input {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.55rem 3.5rem 0.55rem 2.25rem;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            width: 290px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 16px var(--neon-cyan-glow);
+            width: 350px;
+            background: var(--bg-surface-elevated);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .search-shortcut {
+            position: absolute;
+            right: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            background: rgba(120, 120, 120, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.1rem 0.35rem;
+            pointer-events: none;
+        }
+
+        .header-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 0.85rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.25s ease;
+        }
+
+        .header-btn:hover {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 12px var(--neon-cyan-glow);
+            background: var(--bg-surface-elevated);
+        }
+
+        .theme-toggle {
+            padding: 0.5rem 0.75rem;
+            gap: 0.45rem;
+            font-size: 0.8rem;
+        }
+
+        .theme-toggle-icon {
+            font-size: 1rem;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Futuristic Sidebar */
+        .sidebar {
+            width: 290px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 65px;
+            height: calc(100vh - 65px);
+            overflow-y: auto;
+            flex-shrink: 0;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+        }
+
+        .sidebar-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(0, 240, 255, 0.05);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+
+        [data-theme="light"] .sidebar-count {
+            background: #f1f5f9;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 0.75rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.55rem 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.825rem;
+            font-weight: 500;
+            border-radius: 6px;
+            margin-bottom: 0.2rem;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+        }
+
+        .sidebar-nav a .item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(0, 240, 255, 0.08);
+            color: var(--neon-cyan);
+            border-color: rgba(0, 240, 255, 0.25);
+            transform: translateX(3px);
+        }
+
+        [data-theme="light"] .sidebar-nav a:hover {
+            background: #e0f2fe;
+            color: #0284c7;
+            border-color: #bae6fd;
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(0, 240, 255, 0.12);
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 14px var(--neon-cyan-glow);
+            font-weight: 600;
+        }
+
+        [data-theme="light"] .sidebar-nav a.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .sidebar-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.1rem 0.45rem;
+            border-radius: 10px;
+        }
+
+        [data-theme="light"] .sidebar-badge {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        [data-theme="light"] .sidebar-nav a.active .sidebar-badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 2.75rem;
+            max-width: 1440px;
+        }
+
+        /* HUD Hero Banner */
+        .hud-banner {
+            background: var(--banner-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .hud-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .hud-banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2.25rem;
+        }
+
+        .hud-text-side {
+            flex: 1.25;
+        }
+
+        .hud-visual-side {
+            flex: 0.95;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hud-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        [data-theme="light"] .hud-badge-tag {
+            background: #e0f2fe;
+            border-color: #bae6fd;
+            color: #0284c7;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+
+        .hud-text-side h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.45rem;
+            line-height: 1.2;
+        }
+
+        .hud-text-side p {
+            color: var(--text-secondary);
+            font-size: 0.925rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .hud-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .metric-card {
+            background: var(--metric-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.6rem 1.1rem;
+            min-width: 105px;
+            text-align: center;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .metric-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            line-height: 1.2;
+        }
+
+        .metric-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.2rem;
+            font-weight: 600;
+        }
+
+        /* Futuristic Graphic Frame */
+        .hud-visual-frame {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 0 25px var(--border-glow);
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .hud-visual-frame:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35), 0 0 35px var(--neon-cyan-glow);
+        }
+
+        .hud-hero-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hud-visual-frame:hover .hud-hero-img {
+            transform: scale(1.03);
+        }
+
+        .hud-visual-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            border-radius: 12px;
+            background: linear-gradient(180deg, transparent 65%, rgba(6, 8, 19, 0.7) 100%);
+        }
+
+        [data-theme="light"] .hud-visual-overlay {
+            background: linear-gradient(180deg, transparent 70%, rgba(255, 255, 255, 0.35) 100%);
+        }
+
+        .overlay-tag {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.55rem;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .overlay-tag.top-left {
+            top: 10px;
+            left: 10px;
+            background: rgba(6, 8, 19, 0.85);
+            color: var(--neon-cyan);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+        }
+
+        .overlay-tag.bottom-right {
+            bottom: 10px;
+            right: 10px;
+            background: rgba(6, 8, 19, 0.85);
+            color: var(--neon-green);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Interactive Filter HUD */
+        .filter-hud {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            flex-wrap: wrap;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .filter-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-right: 0.25rem;
+            font-weight: 600;
+        }
+
+        .filter-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.35rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--filter-pill-bg);
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--neon-cyan);
+            color: var(--text-primary);
+            box-shadow: 0 0 10px var(--neon-cyan-glow);
+        }
+
+        .filter-pill.active {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 14px var(--neon-cyan-glow);
+        }
+
+        [data-theme="light"] .filter-pill.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+        }
+
+        .badge-indicator {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        /* Category Panels */
+        .category {
+            margin-bottom: 1.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+        }
+
+        .category:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25), 0 0 15px var(--border-glow);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.6rem;
+            background: var(--cat-header-bg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            border-bottom: 1px solid transparent;
+        }
+
+        .category.expanded .category-header {
+            border-bottom-color: var(--border-color);
+            background: var(--cat-header-expanded);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .category-icon {
+            font-size: 1.35rem;
+            filter: drop-shadow(0 0 8px var(--neon-cyan-glow));
+        }
+
+        .category-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            padding: 0.2rem 0.65rem;
+            border-radius: 6px;
+            letter-spacing: 0.03em;
+        }
+
+        [data-theme="light"] .category-count {
+            background: #e0f2fe;
+            border-color: #bae6fd;
+            color: #0369a1;
+        }
+
+        .category-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-cyan);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .category.expanded .category-toggle {
+            transform: rotate(180deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .category.expanded .category-content {
+            max-height: 3500px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.15rem;
+            padding: 1.5rem;
+        }
+
+        /* Tool Cards - High Contrast & Pure Backgrounds */
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--neon-cyan);
+            transition: height 0.25s ease;
+        }
+
+        .tool-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 16px var(--neon-cyan-glow);
+            transform: translateY(-3px);
+        }
+
+        .tool-card:hover::before {
+            height: 100%;
+        }
+
+        .tool-top {
+            margin-bottom: 0.85rem;
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .tool-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.01em;
+            transition: color 0.2s ease;
+        }
+
+        .tool-card:hover .tool-name {
+            color: var(--neon-cyan);
+        }
+
+        .legend-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .badge-t {
+            background: var(--badge-t-bg);
+            border: 1px solid var(--badge-t-border);
+            color: var(--badge-t-color);
+        }
+
+        .badge-d {
+            background: var(--badge-d-bg);
+            border: 1px solid var(--badge-d-border);
+            color: var(--badge-d-color);
+        }
+
+        .badge-r {
+            background: var(--badge-r-bg);
+            border: 1px solid var(--badge-r-border);
+            color: var(--badge-r-color);
+        }
+
+        .badge-m {
+            background: var(--badge-m-bg);
+            border: 1px solid var(--badge-m-border);
+            color: var(--badge-m-color);
+        }
+
+        .tool-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        /* Tool Actions */
+        .tool-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--action-border);
+        }
+
+        .tool-link {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            padding: 0.5rem 0.85rem;
+            background: rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            border-radius: 6px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="light"] .tool-link {
+            background: #e0f2fe;
+            border-color: #bae6fd;
+            color: #0369a1;
+        }
+
+        .tool-link:hover {
+            background: var(--neon-cyan);
+            color: #ffffff;
+            box-shadow: 0 0 16px var(--neon-cyan-glow);
+            transform: translateY(-1px);
+        }
+
+        [data-theme="dark"] .tool-link:hover {
+            color: #060813;
+        }
+
+        .tool-link svg {
+            width: 13px;
+            height: 13px;
+            transition: transform 0.2s ease;
+        }
+
+        .tool-link:hover svg {
+            transform: translate(2px, -2px);
+        }
+
+        .copy-btn {
+            background: var(--copy-btn-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            border-radius: 6px;
+            padding: 0.5rem 0.65rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-btn:hover {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            background: var(--copy-btn-hover);
+        }
+
+        .copy-btn svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 25px var(--neon-cyan-glow);
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(12px);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--neon-cyan);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 0.85rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan-glow);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 3rem;
+            margin-top: 4rem;
+            position: relative;
+            transition: background 0.25s ease;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+        }
+
+        .footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-col h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--neon-cyan);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-col p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan-glow);
+        }
+
+        /* No Results State */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: 12px;
+            margin-top: 1.5rem;
+        }
+
+        .no-results-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .no-results h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--neon-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hud-banner-content {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+            .hud-visual-side {
+                justify-content: flex-start;
+            }
+            .hud-visual-frame {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none;
+            }
+            header {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+            }
+            .search-input {
+                width: 180px;
+            }
+            .search-input:focus {
+                width: 220px;
+            }
+            main {
+                padding: 1.25rem 1rem;
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            .hud-metrics {
+                display: none;
+            }
+            .hud-banner {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top HUD Header -->
+    <header>
+        <div class="logo-group">
+            <div class="status-radar" title="Core Matrix Online"></div>
+            <div class="logo">
+                OSINT//CORE
+                <span class="logo-tag">MATRIX v2.5</span>
+            </div>
+        </div>
+
+        <div class="header-controls">
+            <div class="search-container">
+                <span class="search-icon">⌕</span>
+                <input type="text" class="search-input" placeholder="Search intel tools..." id="searchInput" autocomplete="off" spellcheck="false">
+                <span class="search-shortcut">/</span>
+            </div>
+
+            <button class="header-btn" id="expandAllBtn" title="Expand all categories">
+                <span>[+]</span> All
+            </button>
+            <button class="header-btn" id="collapseAllBtn" title="Collapse all categories">
+                <span>[-]</span> All
+            </button>
+
+            <button class="header-btn theme-toggle" id="themeToggle" title="Toggle Dark/Bright Mode">
+                <span class="theme-toggle-icon" id="themeIcon">☀️</span>
+                <span id="themeLabel">Bright HUD</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Telemetry Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="sidebar-title">Categories</span>
+                <span class="sidebar-count" id="sidebarTotalCount">24</span>
+            </div>
+            <nav class="sidebar-nav" id="sidebarNav"></nav>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main>
+            <!-- Hero HUD Dashboard with Futuristic Visual -->
+            <div class="hud-banner">
+                <div class="hud-banner-content">
+                    <div class="hud-text-side">
+                        <div class="hud-badge-tag">
+                            <span class="live-dot"></span>
+                            <span>CYBER OPERATIONS // THREAT MATRIX</span>
+                        </div>
+                        <h1>CYBER INTEL FRAMEWORK</h1>
+                        <p>High-grade repository of open-source intelligence utilities, digital forensics, adversary tracking, and investigation capabilities.</p>
+
+                        <div class="hud-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="metricTotalTools">124</div>
+                                <div class="metric-label">Intel Tools</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">24</div>
+                                <div class="metric-label">Sectors</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" style="color: var(--neon-green);">100%</div>
+                                <div class="metric-label">Verified Active</div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Filter HUD -->
+                        <div class="filter-hud">
+                            <span class="filter-label">Filter Sector:</span>
+                            <button class="filter-pill active" data-filter="all">ALL (124)</button>
+                            <button class="filter-pill" data-filter="T">
+                                <span class="badge-indicator" style="background: var(--badge-t-color);"></span>
+                                Local Install (T)
+                            </button>
+                            <button class="filter-pill" data-filter="D">
+                                <span class="badge-indicator" style="background: var(--badge-d-color);"></span>
+                                Google Dork (D)
+                            </button>
+                            <button class="filter-pill" data-filter="R">
+                                <span class="badge-indicator" style="background: var(--badge-r-color);"></span>
+                                Registration (R)
+                            </button>
+                            <button class="filter-pill" data-filter="M">
+                                <span class="badge-indicator" style="background: var(--badge-m-color);"></span>
+                                Manual URL (M)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Futuristic Graphics Side -->
+                    <div class="hud-visual-side">
+                        <div class="hud-visual-frame">
+                            <img src="./assets/cyber_intel_hero.jpg" alt="Cyber Intelligence Global HUD" class="hud-hero-img">
+                            <div class="hud-visual-overlay">
+                                <div class="overlay-tag top-left">GLOBE_SYNC_V4.2</div>
+                                <div class="overlay-tag bottom-right">● SURVEILLANCE ACTIVE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Container -->
+            <div id="categoriesContainer"></div>
+        </main>
+    </div>
+
+    <!-- Floating Back To Top Button -->
+    <button class="back-to-top" id="backToTop" title="Return to top">
+        ▲
+    </button>
+
+    <!-- Toast Feedback -->
+    <div class="toast" id="toast">
+        <span>✓</span> <span id="toastMsg">URL copied to clipboard</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>System Telemetry & Mission Notes</h3>
+                <p>Curated for tactical intelligence research, digital forensics, OSINT workflows, and adversary tracking. Verify local jurisdiction laws before automated collection.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>External Links</h3>
+                <div class="footer-links">
+                    <a href="https://osintframework.com" target="_blank">
+                        <span>↗</span> Original OSINT Framework
+                    </a>
+                    <a href="https://github.com/lockfale/osint-framework" target="_blank">
+                        <span>↗</span> GitHub Project
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const osintData = [
+            {
+                name: "Username",
+                icon: "👤",
+                tools: [
+                    { name: "Sherlock", description: "Hunt down social media accounts by username", url: "https://github.com/sherlock-project/sherlock", badge: "T" },
+                    { name: "Namechk", description: "Username availability checker across platforms", url: "https://namechk.com", badge: "" },
+                    { name: "Usersearch", description: "Reverse username lookup tool", url: "https://usersearch.org", badge: "R" },
+                    { name: "WhatsMyName", description: "Username enumeration across platforms", url: "https://whatsmyname.app", badge: "" },
+                    { name: "Instant Username", description: "Find usernames across social networks", url: "https://instantusername.com", badge: "" }
+                ]
+            },
+            {
+                name: "Email Address",
+                icon: "📧",
+                tools: [
+                    { name: "Email Checker", description: "Verify if email exists", url: "https://email-checker.net", badge: "" },
+                    { name: "Hunter", description: "Find email addresses for companies", url: "https://hunter.io", badge: "R" },
+                    { name: "Phonebook", description: "Email search and discovery", url: "https://phonebook.cz", badge: "" },
+                    { name: "Epieos", description: "Reverse email lookup and reconnaissance", url: "https://epieos.com", badge: "" },
+                    { name: "MXToolbox", description: "Email deliverability and blacklist checks", url: "https://mxtoolbox.com", badge: "" }
+                ]
+            },
+            {
+                name: "Domain Name",
+                icon: "🌐",
+                tools: [
+                    { name: "Whois", description: "Domain registration lookup", url: "https://whois.domaintools.com", badge: "R" },
+                    { name: "DNSlytics", description: "DNS and domain analysis", url: "https://dnslytics.com", badge: "" },
+                    { name: "ViewDNS", description: "DNS and network tools", url: "https://viewdns.info", badge: "" },
+                    { name: "Shodan", description: "Internet-connected devices search", url: "https://www.shodan.io", badge: "" },
+                    { name: "Censys", description: "Internet-wide scanning data", url: "https://censys.io", badge: "R" }
+                ]
+            },
+            {
+                name: "IP & MAC Address",
+                icon: "🔢",
+                tools: [
+                    { name: "IPinfo", description: "IP address intelligence", url: "https://ipinfo.io", badge: "" },
+                    { name: "WhatIsMyIP", description: "Check your IP and location", url: "https://whatismyipaddress.com", badge: "" },
+                    { name: "IPFingerprints", description: "Passive OS fingerprinting", url: "https://ipfingerprints.com", badge: "" },
+                    { name: "AbuseIPDB", description: "Report and check malicious IPs", url: "https://www.abuseipdb.com", badge: "" },
+                    { name: "MAC Vendor Lookup", description: "Find MAC address manufacturers", url: "https://macvendors.com", badge: "" }
+                ]
+            },
+            {
+                name: "Social Networks",
+                icon: "📱",
+                tools: [
+                    { name: "Social Searcher", description: "Social media search engine", url: "https://www.social-searcher.com", badge: "" },
+                    { name: "BuzzSumo", description: "Content analysis and social metrics", url: "https://buzzsumo.com", badge: "R" },
+                    { name: "Twint", description: "Twitter intelligence tool", url: "https://github.com/twintproject/twint", badge: "T" },
+                    { name: "Social Blade", description: "Social media statistics", url: "https://socialblade.com", badge: "" },
+                    { name: "SparkToro", description: "Audience research", url: "https://sparktoro.com", badge: "R" }
+                ]
+            },
+            {
+                name: "Search Engines",
+                icon: "🔍",
+                tools: [
+                    { name: "Google", description: "The most popular search engine", url: "https://www.google.com", badge: "" },
+                    { name: "DuckDuckGo", description: "Privacy-focused search", url: "https://duckduckgo.com", badge: "" },
+                    { name: "Bing", description: "Microsoft's search engine", url: "https://www.bing.com", badge: "" },
+                    { name: "Baidu", description: "Chinese search engine", url: "https://www.baidu.com", badge: "" },
+                    { name: "Yandex", description: "Russian search engine", url: "https://yandex.com", badge: "" }
+                ]
+            },
+            {
+                name: "Images / Videos / Docs",
+                icon: "🖼️",
+                tools: [
+                    { name: "Google Images", description: "Reverse image search", url: "https://images.google.com", badge: "" },
+                    { name: "Yandex Images", description: "Reverse image search", url: "https://yandex.com/images", badge: "" },
+                    { name: "TinEye", description: "Reverse image search", url: "https://tineye.com", badge: "" },
+                    { name: "Jimpl", description: "Online EXIF and metadata viewer", url: "https://jimpl.com", badge: "" },
+                    { name: "InVID", description: "Video verification tool", url: "https://www.invid-project.eu", badge: "" }
+                ]
+            },
+            {
+                name: "People Search Engines",
+                icon: "🔎",
+                tools: [
+                    { name: "Pipl", description: "People search engine", url: "https://pipl.com", badge: "" },
+                    { name: "LinkedIn", description: "Professional network search", url: "https://linkedin.com", badge: "R" },
+                    { name: "TruePeopleSearch", description: "People finder", url: "https://truepeoplesearch.com", badge: "" },
+                    { name: "Spokeo", description: "People search engine", url: "https://www.spokeo.com", badge: "R" },
+                    { name: "BeenVerified", description: "People search and background checks", url: "https://www.beenverified.com", badge: "R" }
+                ]
+            },
+            {
+                name: "Telephone Numbers",
+                icon: "📞",
+                tools: [
+                    { name: "TrueCaller", description: "Caller ID and spam blocking", url: "https://www.truecaller.com", badge: "R" },
+                    { name: "ThatsThem", description: "Free reverse phone number and address search", url: "https://thatsthem.com", badge: "" },
+                    { name: "CallerID", description: "Phone number information", url: "https://www.callerid.com", badge: "" },
+                    { name: "NumVerify", description: "Phone number validation API", url: "https://numverify.com", badge: "" }
+                ]
+            },
+            {
+                name: "Geolocation / Maps",
+                icon: "🗺️",
+                tools: [
+                    { name: "Google Maps", description: "Maps and satellite imagery", url: "https://www.google.com/maps", badge: "" },
+                    { name: "Google Earth", description: "Satellite and aerial imagery", url: "https://earth.google.com", badge: "" },
+                    { name: "OpenStreetMap", description: "Open source maps", url: "https://www.openstreetmap.org", badge: "" },
+                    { name: "WikiMapia", description: "Editable maps combine Wiki and Google Earth", url: "https://wikimapia.org", badge: "" },
+                    { name: "Flightradar24", description: "Real-time aircraft tracking", url: "https://www.flightradar24.com", badge: "" }
+                ]
+            },
+            {
+                name: "Archives",
+                icon: "📚",
+                tools: [
+                    { name: "Wayback Machine", description: "Historical web snapshots", url: "https://web.archive.org", badge: "" },
+                    { name: "Archive.is", description: "Web page archiving", url: "https://archive.is", badge: "" },
+                    { name: "Perma.cc", description: "Permanent, verifiable web page archiving", url: "https://perma.cc", badge: "R" },
+                    { name: "Ghostarchive", description: "Web archive service", url: "https://ghostarchive.org", badge: "" }
+                ]
+            },
+            {
+                name: "Dark Web",
+                icon: "🌑",
+                tools: [
+                    { name: "Tor Browser", description: "Access onion sites", url: "https://www.torproject.org", badge: "T" },
+                    { name: "Ahmia", description: "Search engine for onion sites", url: "https://ahmia.fi", badge: "" },
+                    { name: "Tor Taxi", description: "Curated directory of verified onion sites", url: "https://tor.taxi", badge: "" },
+                    { name: "Dark.fail", description: "Status tracker and directory for dark web services", url: "https://dark.fail", badge: "" }
+                ]
+            },
+            {
+                name: "Digital Currency",
+                icon: "💰",
+                tools: [
+                    { name: "Blockchain Explorer", description: "Bitcoin block explorer", url: "https://blockchain.com/explorer", badge: "" },
+                    { name: "Etherscan", description: "Ethereum block explorer", url: "https://etherscan.io", badge: "" },
+                    { name: "Blockchair", description: "Multi-cryptocurrency explorer", url: "https://blockchair.com", badge: "" },
+                    { name: "Wallet Explorer", description: "Bitcoin wallet tracking", url: "https://www.walletexplorer.com", badge: "" }
+                ]
+            },
+            {
+                name: "Threat Intelligence",
+                icon: "🛡️",
+                tools: [
+                    { name: "VirusTotal", description: "Analyze suspicious files and URLs", url: "https://www.virustotal.com", badge: "" },
+                    { name: "AlienVault OTX", description: "Threat intelligence platform", url: "https://otx.alienvault.com", badge: "R" },
+                    { name: "AbuseIPDB", description: "IP reputation database", url: "https://www.abuseipdb.com", badge: "" },
+                    { name: "URLScan", description: "URL scanner and sandbox", url: "https://urlscan.io", badge: "" },
+                    { name: "Hybrid Analysis", description: "Advanced malware analysis", url: "https://www.hybrid-analysis.com", badge: "" }
+                ]
+            },
+            {
+                name: "Malicious File Analysis",
+                icon: "🦠",
+                tools: [
+                    { name: "Any.Run", description: "Interactive malware analysis", url: "https://any.run", badge: "R" },
+                    { name: "Joe Sandbox", description: "Malware analysis sandbox", url: "https://www.joesandbox.com", badge: "R" },
+                    { name: "Cuckoo Sandbox", description: "Open source malware sandbox", url: "https://cuckoosandbox.org", badge: "T" },
+                    { name: "Detux", description: "Linux malware sandbox", url: "https://detux.org", badge: "" }
+                ]
+            },
+            {
+                name: "Metadata",
+                icon: "📋",
+                tools: [
+                    { name: "ExifTool", description: "Read/write metadata", url: "https://exiftool.org", badge: "T" },
+                    { name: "Jeffrey's EXIF", description: "Online EXIF viewer", url: "https://exif.regex.info", badge: "" },
+                    { name: "Metadata2Go", description: "Free metadata extractor", url: "https://metadata2go.com", badge: "" },
+                    { name: "FOCA", description: "Metadata fingerprinting tool", url: "https://github.com/ElevenPaths/FOCA", badge: "T" }
+                ]
+            },
+            {
+                name: "Encoding / Decoding",
+                icon: "🔐",
+                tools: [
+                    { name: "CyberChef", description: "Data encoding/decoding tool", url: "https://gchq.github.io/CyberChef", badge: "" },
+                    { name: "URL Decode", description: "URL encoding/decoding", url: "https://www.urldecoder.org", badge: "" },
+                    { name: "Base64 Decode", description: "Base64 encode/decode", url: "https://www.base64decode.org", badge: "" },
+                    { name: "Hashes", description: "Hash lookup and cracking database", url: "https://hashes.com/en/decrypt/hash", badge: "" }
+                ]
+            },
+            {
+                name: "Business Records",
+                icon: "🏢",
+                tools: [
+                    { name: "LinkedIn", description: "Company and employee research", url: "https://linkedin.com", badge: "R" },
+                    { name: "Crunchbase", description: "Business data and funding info", url: "https://www.crunchbase.com", badge: "R" },
+                    { name: "OpenCorporates", description: "Global company registry", url: "https://opencorporates.com", badge: "" },
+                    { name: "Bloomberg", description: "Business and financial data", url: "https://www.bloomberg.com", badge: "R" }
+                ]
+            },
+            {
+                name: "Public Records",
+                icon: "📄",
+                tools: [
+                    { name: "National Archives", description: "US public records", url: "https://www.archives.gov", badge: "" },
+                    { name: "PACER", description: "US federal court records", url: "https://pacer.uscourts.gov", badge: "R" },
+                    { name: "GovInfo", description: "US government publications", url: "https://www.govinfo.gov", badge: "" },
+                    { name: "FOIA", description: "Freedom of Information Act", url: "https://www.foia.gov", badge: "" }
+                ]
+            },
+            {
+                name: "Training",
+                icon: "🎓",
+                tools: [
+                    { name: "OSINT Framework", description: "Original OSINT tools collection", url: "https://osintframework.com", badge: "" },
+                    { name: "IntelTechniques", description: "OSINT training and tools", url: "https://inteltechniques.com", badge: "" },
+                    { name: "Trace Labs", description: "OSINT CTF platform", url: "https://www.tracelabs.org", badge: "" },
+                    { name: "OSINT Combine", description: "OSINT training and free analysis tools", url: "https://www.osintcombine.com/free-osint-tools", badge: "" }
+                ]
+            },
+            {
+                name: "AI Tools",
+                icon: "🤖",
+                tools: [
+                    { name: "ChatGPT", description: "AI conversational assistant", url: "https://chatgpt.com", badge: "R" },
+                    { name: "Claude", description: "AI assistant by Anthropic", url: "https://claude.ai", badge: "R" },
+                    { name: "Perplexity", description: "AI-powered search", url: "https://www.perplexity.ai", badge: "R" },
+                    { name: "Gemini", description: "Google's conversational AI assistant", url: "https://gemini.google.com", badge: "" },
+                    { name: "Copilot", description: "Microsoft's AI assistant", url: "https://copilot.microsoft.com", badge: "R" }
+                ]
+            },
+            {
+                name: "OpSec",
+                icon: "🔒",
+                tools: [
+                    { name: "Have I Been Pwned", description: "Check if email in data breaches", url: "https://haveibeenpwned.com", badge: "" },
+                    { name: "2FA List", description: "Sites with two-factor auth", url: "https://2fa.directory", badge: "" },
+                    { name: "Password Managers", description: "Recommended password managers", url: "https://www.keepassxc.org", badge: "T" },
+                    { name: "EFF Surveillance Self-Defense", description: "Digital security guides", url: "https://ssd.eff.org", badge: "" }
+                ]
+            },
+            {
+                name: "Transportation",
+                icon: "✈️",
+                tools: [
+                    { name: "Flightradar24", description: "Real-time flight tracking", url: "https://www.flightradar24.com", badge: "" },
+                    { name: "FlightAware", description: "Flight tracking and status", url: "https://www.flightaware.com", badge: "" },
+                    { name: "MarineTraffic", description: "Ship tracking", url: "https://www.marinetraffic.com", badge: "" },
+                    { name: "Trainline", description: "Rail schedules and booking", url: "https://www.thetrainline.com", badge: "" }
+                ]
+            },
+            {
+                name: "Instant Messaging",
+                icon: "💬",
+                tools: [
+                    { name: "TGStat", description: "Telegram channel and analytics catalog", url: "https://tgstat.com", badge: "" },
+                    { name: "WhatsApp OSINT", description: "WhatsApp number lookup", url: "https://www.whatsapp.com", badge: "" },
+                    { name: "Signal", description: "Secure messaging app", url: "https://signal.org", badge: "" }
+                ]
+            },
+            {
+                name: "Forums / Blogs / IRC",
+                icon: "💻",
+                tools: [
+                    { name: "Reddit", description: "Social news and discussion", url: "https://www.reddit.com", badge: "" },
+                    { name: "Medium", description: "Blog platform", url: "https://medium.com", badge: "" },
+                    { name: "GitHub", description: "Code and developer platforms", url: "https://github.com", badge: "" },
+                    { name: "Stack Exchange", description: "Q&A network", url: "https://stackexchange.com", badge: "" }
+                ]
+            },
+            {
+                name: "Dating",
+                icon: "❤️",
+                tools: [
+                    { name: "Social Catfish", description: "Dating site research", url: "https://socialcatfish.com", badge: "R" },
+                    { name: "Scamwatch", description: "Romance and relationship scam resources", url: "https://www.scamwatch.gov.au", badge: "" }
+                ]
+            },
+            {
+                name: "Exploits & Advisories",
+                icon: "⚠️",
+                tools: [
+                    { name: "CVE", description: "Common Vulnerabilities database", url: "https://cve.mitre.org", badge: "" },
+                    { name: "NVD", description: "National Vulnerability Database", url: "https://nvd.nist.gov", badge: "" },
+                    { name: "Exploit-DB", description: "Exploit database", url: "https://www.exploit-db.com", badge: "" },
+                    { name: "PacketStorm", description: "Security advisories", url: "https://packetstormsecurity.com", badge: "" }
+                ]
+            },
+            {
+                name: "Language Translation",
+                icon: "🌍",
+                tools: [
+                    { name: "Google Translate", description: "Translation service", url: "https://translate.google.com", badge: "" },
+                    { name: "DeepL", description: "AI-powered translation", url: "https://www.deepl.com", badge: "" },
+                    { name: "Bing Translator", description: "Microsoft translation", url: "https://www.bing.com/translator", badge: "" }
+                ]
+            },
+            {
+                name: "Mobile Emulation",
+                icon: "📱",
+                tools: [
+                    { name: "Genymotion", description: "Android emulator", url: "https://www.genymotion.com", badge: "R" },
+                    { name: "BlueStacks", description: "Android emulator", url: "https://www.bluestacks.com", badge: "" },
+                    { name: "Android Studio", description: "Official Android emulator", url: "https://developer.android.com/studio", badge: "T" }
+                ]
+            },
+            {
+                name: "Classifieds",
+                icon: "🏷️",
+                tools: [
+                    { name: "Craigslist", description: "Online classifieds", url: "https://craigslist.org", badge: "" },
+                    { name: "eBay", description: "Online auction and shopping", url: "https://www.ebay.com", badge: "" },
+                    { name: "Facebook Marketplace", description: "Local buying and selling", url: "https://www.facebook.com/marketplace", badge: "R" }
+                ]
+            }
+        ];
+
+        let activeFilter = 'all';
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderSidebar();
+            setupSearch();
+            setupTheme();
+            setupFilters();
+            setupExpandCollapse();
+            setupKeyboardShortcuts();
+            setupScrollSpy();
+        });
+
+        // Render Categories with Modern Cards
+        function renderCategories() {
+            const container = document.getElementById('categoriesContainer');
+            
+            container.innerHTML = osintData.map((category, index) => {
+                return `
+                    <div class="category expanded" data-category="${category.name}" id="cat-${sanitizeId(category.name)}">
+                        <div class="category-header" onclick="toggleCategory('${category.name}')">
+                            <div class="category-title">
+                                <span class="category-icon">${category.icon}</span>
+                                <span>${category.name}</span>
+                            </div>
+                            <div class="category-right">
+                                <span class="category-count">${category.tools.length} TOOLS</span>
+                                <span class="category-toggle">▼</span>
+                            </div>
+                        </div>
+                        <div class="category-content">
+                            <div class="tools-grid">
+                                ${category.tools.map(tool => `
+                                    <div class="tool-card" 
+                                         data-badge="${tool.badge || 'NONE'}" 
+                                         data-search="${tool.name.toLowerCase()} ${tool.description.toLowerCase()} ${tool.url.toLowerCase()}">
+                                        <div class="tool-top">
+                                            <div class="tool-header">
+                                                <span class="tool-name">${tool.name}</span>
+                                                ${tool.badge ? `
+                                                    <span class="legend-badge badge-${tool.badge.toLowerCase()}">(${tool.badge})</span>
+                                                ` : ''}
+                                            </div>
+                                            <p class="tool-description">${tool.description}</p>
+                                        </div>
+                                        <div class="tool-actions">
+                                            <a href="${tool.url}" target="_blank" rel="noopener noreferrer" class="tool-link">
+                                                <span>LAUNCH</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                            </a>
+                                            <button class="copy-btn" onclick="copyToolUrl('${tool.url}')" title="Copy URL">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render Telemetry Sidebar
+        function renderSidebar() {
+            const nav = document.getElementById('sidebarNav');
+            nav.innerHTML = osintData.map(category => `
+                <a href="#cat-${sanitizeId(category.name)}" onclick="scrollToCategory('${category.name}', event)">
+                    <span class="item-left">
+                        <span>${category.icon}</span>
+                        <span>${category.name}</span>
+                    </span>
+                    <span class="sidebar-badge">${category.tools.length}</span>
+                </a>
+            `).join('');
+            
+            const totalTools = osintData.reduce((acc, cat) => acc + cat.tools.length, 0);
+            const totalMetric = document.getElementById('metricTotalTools');
+            if (totalMetric) totalMetric.textContent = totalTools;
+        }
+
+        function sanitizeId(str) {
+            return str.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+        }
+
+        // Toggle Accordion Category
+        function toggleCategory(name) {
+            const category = document.querySelector(`[data-category="${name}"]`);
+            if (category) {
+                category.classList.toggle('expanded');
+            }
+        }
+
+        // Scroll to Category with glow highlight
+        function scrollToCategory(name, event) {
+            if (event) event.preventDefault();
+            const category = document.querySelector(`[data-category="${name}"]`);
+            if (category) {
+                category.classList.add('expanded');
+                category.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Highlight pulse effect
+                category.style.boxShadow = '0 0 35px var(--neon-cyan)';
+                setTimeout(() => {
+                    category.style.boxShadow = '';
+                }, 1200);
+            }
+        }
+
+        // Expand / Collapse All
+        function setupExpandCollapse() {
+            document.getElementById('expandAllBtn').addEventListener('click', () => {
+                document.querySelectorAll('.category').forEach(cat => cat.classList.add('expanded'));
+            });
+
+            document.getElementById('collapseAllBtn').addEventListener('click', () => {
+                document.querySelectorAll('.category').forEach(cat => cat.classList.remove('expanded'));
+            });
+        }
+
+        // Interactive Filter Buttons
+        function setupFilters() {
+            const pills = document.querySelectorAll('.filter-pill');
+            pills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    pills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    activeFilter = pill.dataset.filter;
+                    applyFilters();
+                });
+            });
+        }
+
+        // Search and Filter Combiner
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const categories = document.querySelectorAll('.category');
+            let totalVisible = 0;
+
+            categories.forEach(category => {
+                const cards = category.querySelectorAll('.tool-card');
+                let catVisibleCount = 0;
+
+                cards.forEach(card => {
+                    const matchesSearch = query === '' || card.dataset.search.includes(query);
+                    const matchesFilter = activeFilter === 'all' || card.dataset.badge === activeFilter;
+
+                    if (matchesSearch && matchesFilter) {
+                        card.style.display = 'flex';
+                        catVisibleCount++;
+                        totalVisible++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (catVisibleCount > 0) {
+                    category.style.display = 'block';
+                    if (query !== '' || activeFilter !== 'all') {
+                        category.classList.add('expanded');
+                    }
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+
+            // No Results feedback
+            let noResults = document.querySelector('.no-results');
+            if (totalVisible === 0) {
+                if (!noResults) {
+                    document.getElementById('categoriesContainer').insertAdjacentHTML('beforeend', `
+                        <div class="no-results">
+                            <div class="no-results-icon">📡</div>
+                            <h3>NO MATCHING TELEMETRY</h3>
+                            <p>No tools match your query or filter criteria. Try adjusting keywords.</p>
+                        </div>
+                    `);
+                }
+            } else if (noResults) {
+                noResults.remove();
+            }
+        }
+
+        // Theme Toggle with High Contrast & Clear Icon/Text
+        function setupTheme() {
+            const toggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeLabel = document.getElementById('themeLabel');
+            
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeUI(savedTheme);
+
+            toggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeUI(newTheme);
+            });
+
+            function updateThemeUI(theme) {
+                if (theme === 'light') {
+                    themeIcon.textContent = '🌙';
+                    themeLabel.textContent = 'Dark Mode';
+                } else {
+                    themeIcon.textContent = '☀️';
+                    themeLabel.textContent = 'Bright Mode';
+                }
+            }
+        }
+
+        // Copy URL Helper
+        function copyToolUrl(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2200);
+            });
+        }
+
+        // Global Keyboard Shortcut
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                if ((e.key === '/' || (e.metaKey && e.key === 'k') || (e.ctrlKey && e.key === 'k')) && document.activeElement.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    const input = document.getElementById('searchInput');
+                    input.focus();
+                    input.select();
+                }
+                if (e.key === 'Escape' && document.activeElement.id === 'searchInput') {
+                    document.getElementById('searchInput').value = '';
+                    applyFilters();
+                    document.getElementById('searchInput').blur();
+                }
+            });
+        }
+
+        // Scroll Spy & Back to Top
+        function setupScrollSpy() {
+            const backToTop = document.getElementById('backToTop');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            const categories = document.querySelectorAll('.category');
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+
+                let currentCatId = '';
+                categories.forEach(cat => {
+                    const rect = cat.getBoundingClientRect();
+                    if (rect.top <= 140 && rect.bottom >= 140) {
+                        currentCatId = cat.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentCatId}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
