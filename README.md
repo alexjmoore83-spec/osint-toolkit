@@ -1,4 +1,4 @@
-# OSINT Framework // Cyber Intel Toolkit
+# OSINT Framework // Cyber Intel Toolkit (AstrOsint)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Active](https://img.shields.io/badge/Status-100%25%20Verified-00ffaa.svg)](#)
